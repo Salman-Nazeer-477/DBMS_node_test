@@ -1,5 +1,7 @@
 // server.js
 const mysql = require('mysql2');
+const express = require('express');
+const app = express();
 
 // 1. Create a connection pool to the database
 const pool = mysql.createPool({
@@ -24,6 +26,9 @@ async function fetchUsers() {
     console.log("Data retrieved successfully:");
     console.log(rows);
     console.log(fields); 
+    // Serve static assets from the "public" folder
+  app.use(express.static('public'));
+  app.listen(3000, () => console.log('Server running on port 3000'));
   } catch (error) {
     console.error("Error connecting or querying the database:", error.message);
   } finally {
@@ -33,3 +38,7 @@ async function fetchUsers() {
 }
 
 fetchUsers();
+
+
+
+
